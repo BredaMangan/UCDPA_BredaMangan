@@ -51,6 +51,34 @@ print(states_finance.shape)
 drop_duplicates = states_finance.drop_duplicates()
 print(states_finance.shape, drop_duplicates.shape)
 
+##Sort Year, Expenditure and Revenue in descending order
+states_finance = states_finance.sort_values(["YEAR", "TOTAL_REVENUE", "TOTAL_EXPENDITURE"], ascending = [False, False, False])
+print(states_finance.head())
+
+## Check if revenue and expenditure breakdown add up to total revenue and total expenditure
+revenue = int(7709079 + 50904567 + 30603616)
+expenditure = int(42587272 + 26058021 + 3995951 + 6786142)
+total_revenue = 89217262
+total_expenditure = 85320133
+
+if total_expenditure == expenditure:
+    print("total expenditure is equal to expenditure")
+elif total_expenditure < expenditure:
+    print("total expenditure is less than expenditure")
+else:print("total expenditure is greater than ependiture")
+
+if total_revenue == revenue:
+    print("total revenue is equal to total revenue")
+elif total_revenue < revenue:
+    print("total revenue is less than revenue")
+else:print("total revenue is greater than revenue")
+
+
+
+
+
+
+
 
 
 
