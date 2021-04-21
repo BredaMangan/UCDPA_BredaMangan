@@ -11,3 +11,8 @@ print(states_finance.shape)
 
 ## check for missing values
 print(states_finance.isnull().sum())
+
+## Check the shape of the data
+(states_finance.shape)
+
+
