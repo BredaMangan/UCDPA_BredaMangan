@@ -92,20 +92,23 @@ column_list_drop = states_finance.drop(column_list_drop, axis = 1)
 states_finance = column_list_drop
 print(states_finance)
 
-## Create a list of the States using an array
-array = np.array(['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California',
-       'Colorado', 'Connecticut', 'Delaware', 'District of Columbia',
-       'Florida', 'Georgia', 'Hawaii', 'Idaho', 'Illinois', 'Indiana',
-       'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine', 'Maryland',
-       'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi',
-       'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire',
-       'New Jersey', 'New Mexico', 'New York', 'North Carolina',
-       'North Dakota', 'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania',
-       'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee',
-       'Texas', 'Utah', 'Vermont', 'Virginia', 'Washington',
-       'West Virginia', 'Wisconsin', 'Wyoming'])
-print(array)
+## Create lists of the top 5 income and expenditure
+array_total_exp = np.array([892.17, 669.13, 582.84,329.09, 310.77])
+array_total_rev = np.array([853.20, 682.82, 593.15,330.37,309.25])
+print(array_total_exp.mean().round())
+print(array_total_exp.std().round())
+print(array_total_exp.sum().round())
+print(array_total_rev.mean().round())
+print(array_total_rev.std().round())
+print(array_total_rev.sum().round())
 
+## Drop rows less than 2012
+states_finance.drop(states_finance[states_finance['YEAR']<2012].index, inplace = True)
+print(states_finance.head())
 
-
-
+## User defined function
+def sum_numbers(num1 = 892.17, num2 = 669.13):
+    total = num1 + num2
+    return total
+summation = sum_numbers()
+print(summation)
