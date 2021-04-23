@@ -1,43 +1,56 @@
 import numpy as np
 import pandas as pd
 import seaborn as sns
-import matplotlib as plt
+import matplotlib.pyplot as plt
 import os as os
 
 import pandas as pd
 states_finance = pd.read_csv("STATES.csv")
+test_results = pd.read_csv("NEAP.CSV")
+
 ## check how many rows and columns are in my data
 print(states_finance.shape)
+print(test_results.shape)
 
 ## Check the head of the data
 print(states_finance.head(5))
+print(test_results.head(5))
 
 ##Check the tail of the data
 print(states_finance.tail(5))
+print(test_results.tail(5))
 
 ## check for missing values
 print(states_finance.isnull().sum())
+print(test_results.isnull().sum())
 
 ## Check the names of the columns
 print(states_finance.columns)
+print(test_results.columns)
 
 ## Check for the Primary Key(unique values and = to total no. of rows)
 print(len(states_finance.STATE.unique()))
+print(len(test_results.STATE.unique()))
 
 ## Check how many unique states
 print(len(states_finance.STATE.unique()))
+print(len(test_results.STATE.unique()))
 
 ## Check if the number of states by the number of years match the total number of rows.
 print(51*25)
+print(17*52)
 
 ##Check the data type of the data
 print(states_finance.dtypes)
+print(test_results.dtypes)
 
 ##Check unique year values
 print(states_finance.YEAR.unique())
+print(test_results.YEAR.unique())
 
 ##Check how many times each year appeared
 print(states_finance['YEAR'].value_counts())
+print(test_results['YEAR'].value_counts())
 
 ## Drop the null values - year 1992
 droprows = states_finance.dropna()
@@ -93,18 +106,24 @@ states_finance = column_list_drop
 print(states_finance)
 
 ## Create lists of the top 5 income and expenditure
-array_total_exp = np.array([892.17, 669.13, 582.84,329.09, 310.77])
-array_total_rev = np.array([853.20, 682.82, 593.15,330.37,309.25])
-print(array_total_exp.mean().round())
-print(array_total_exp.std().round())
-print(array_total_exp.sum().round())
-print(array_total_rev.mean().round())
-print(array_total_rev.std().round())
-print(array_total_rev.sum().round())
+array_total_exp_2016 = np.array([853.20, 682.82, 593.15,330.37,309.25])
+array_total_rev_2016 = np.array([892.17, 669.13, 582.84,329.09, 310.77])
+print(array_total_exp_2016.mean().round())
+print(array_total_exp_2016.std().round())
+print(array_total_exp_2016.sum().round())
+print(array_total_rev_2016.mean().round())
+print(array_total_rev_2016.std().round())
+print(array_total_rev_2016.sum().round())
+array_total_exp_2015 = np.array([783.66, 650.95, 562.56, 324.10, 296.91])
+array_total_rev_2015 = np.array([782.48, 637.12, 555.82, 320.97, 299.67])
 
-## Drop rows less than 2012
+## Drop rows pre 2012
 states_finance.drop(states_finance[states_finance['YEAR']<2012].index, inplace = True)
-print(states_finance.head())
+print(states_finance.head(20))
+test_results.drop(test_results[test_results["YEAR"]<2012].index, inplace = True)
+print(test_results.head(20))
+test_results.drop(test_results[test_results["YEAR"]>=2015].index, inplace = True)
+print(test_results.head(20))
 
 ## User defined function
 def sum_numbers(num1 = 892.17, num2 = 669.13):
@@ -112,3 +131,45 @@ def sum_numbers(num1 = 892.17, num2 = 669.13):
     return total
 summation = sum_numbers()
 print(summation)
+
+# Grouping by the top 5 states based on year
+states_finance = states_finance.groupby('YEAR').head(20).reset_index(drop=True)
+print(states_finance.head(5))
+test_results = test_results.groupby('YEAR').head(20).reset_index(drop=True)
+print(test_results.head(5))
+
+## Filter out 2012
+check_2012 = states_finance[states_finance['YEAR']==2012]
+print(check_2012.head(10))
+
+
+plt.bar(states_finance.index, states_finance["TOTAL_REVENUE"])
+plt.bar(test_results.index, test_results["AVG_SCORE"])
+
+## Bar Chart - Tope 5 expenditure & revenue States
+labels = ['California', 'New York', 'Texas', 'Illinois', 'Pennsylvania']
+Revenue = array_total_rev_2015
+Expenditure = array_total_exp_2015
+
+x = np.arange(len(labels))  # the label locations
+width = 0.35  # the width of the bars
+
+fig, ax = plt.subplots()
+rects1 = ax.bar(x - width/2, Revenue, width, label='Expenditure')
+rects2 = ax.bar(x + width/2, Expenditure, width, label='Revenue')
+
+# Add some text for labels, title and custom x-axis tick labels, etc.
+ax.set_ylabel('Revenue/Expenditure')
+ax.set_title('US State Educational Revenue/Expenditure 2015')
+ax.set_xticks(x)
+ax.set_xticklabels(labels)
+ax.legend()
+fig.tight_layout()
+plt.show()
+
+finance_results = pd.merge(states_finance, test_results, on = ["YEAR", "STATE"], how = "left")
+finance_results.head(5)
+
+plt.bar(finance_results.index, finance_results["YEAR"])
+plt.show()
+
