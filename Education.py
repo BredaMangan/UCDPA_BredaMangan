@@ -124,12 +124,25 @@ print(test_results.head(20))
 test_results.drop(test_results[test_results["YEAR"]>=2015].index, inplace = True)
 print(test_results.head(20))
 
-## User defined function
-def sum_numbers(num1 = 892.17, num2 = 669.13):
+## User defined function - % Revenue / Expenditure to Total
+a = 853.20 #Expenditure
+b = 892.17 #Revenue
+
+def sum_numbers(num1 = a, num2 = b):
     total = num1 + num2
     return total
 summation = sum_numbers()
 print(summation)
+def sum_percent1(num3 = a, num4 = summation):
+    total = num3 / num4
+    return total
+percent1 = sum_percent1
+print(sum_percent1())
+def sum_percent2(num5 = b, num4 = summation):
+    total = num5 / num4
+    return total
+percent2 = sum_percent2
+print(sum_percent2())
 
 # Grouping by the top 5 states based on year
 states_finance = states_finance.groupby('YEAR').head(20).reset_index(drop=True)
@@ -159,6 +172,7 @@ ax.set_xticklabels(labels)
 ax.legend()
 fig.tight_layout()
 plt.show()
+
 
 
 
