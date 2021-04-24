@@ -38,7 +38,6 @@ print(len(test_results.STATE.unique()))
 
 ## Check if the number of states by the number of years match the total number of rows.
 print(51*25)
-print(17*52)
 
 ##Check the data type of the data
 print(states_finance.dtypes)
@@ -135,16 +134,10 @@ print(summation)
 # Grouping by the top 5 states based on year
 states_finance = states_finance.groupby('YEAR').head(20).reset_index(drop=True)
 print(states_finance.head(5))
-test_results = test_results.groupby('YEAR').head(20).reset_index(drop=True)
-print(test_results.head(5))
 
 ## Filter out 2012
 check_2012 = states_finance[states_finance['YEAR']==2012]
 print(check_2012.head(10))
-
-
-plt.bar(states_finance.index, states_finance["TOTAL_REVENUE"])
-plt.bar(test_results.index, test_results["AVG_SCORE"])
 
 ## Bar Chart - Tope 5 expenditure & revenue States
 labels = ['California', 'New York', 'Texas', 'Illinois', 'Pennsylvania']
@@ -167,9 +160,5 @@ ax.legend()
 fig.tight_layout()
 plt.show()
 
-finance_results = pd.merge(states_finance, test_results, on = ["YEAR", "STATE"], how = "left")
-finance_results.head(5)
 
-plt.bar(finance_results.index, finance_results["YEAR"])
-plt.show()
 
