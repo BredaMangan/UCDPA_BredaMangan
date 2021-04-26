@@ -8,7 +8,7 @@ import pandas as pd
 states_finance = pd.read_csv("STATES.csv")
 test_results = pd.read_csv("NEAP.CSV")
 
-## check how many rows and columns are in my data
+## check the shape of the data - how many rows and columns
 print(states_finance.shape)
 print(test_results.shape)
 
