@@ -14,7 +14,7 @@ print(test_results.shape)
 
 ## Check the head of the data
 print(states_finance.head(5))
-print(test_results.head(5))
+print(states_finance.head(5))
 
 ##Check the tail of the data
 print(states_finance.tail(5))
@@ -72,6 +72,20 @@ revenue = int(7709079 + 50904567 + 30603616)
 expenditure = int(42587272 + 26058021 + 3995951 + 6786142)
 total_revenue = 89217262
 total_expenditure = 85320133
+
+# Revenue Total (looping)
+revenue_loop = [7709079, 50904567, 30603616]
+sum = 0
+for val in revenue_loop:
+    sum = sum+val
+print("The Revenue breakdwon is", sum)
+
+# Expenditure Total (looping)
+expenditure_loop = [42587272, 26058021, 3995951, 6786142]
+sum = 0
+for val in expenditure_loop:
+    sum = sum+val
+print("The Expenditure breakdwon is", sum)
 
 ## Check if the expenditure is equal to the total expenditure
 if total_expenditure == expenditure:
@@ -145,8 +159,8 @@ percent2 = sum_percent2
 print(sum_percent2())
 
 # Grouping by the top 5 states based on year
-states_finance = states_finance.groupby('YEAR').head(20).reset_index(drop=True)
-print(states_finance.head(5))
+states_finance = states_finance.groupby('YEAR').head(5).reset_index(drop=True)
+print(states_finance.head(10))
 
 ## Filter out 2012
 check_2012 = states_finance[states_finance['YEAR']==2012]
@@ -161,11 +175,11 @@ x = np.arange(len(labels))  # the label locations
 width = 0.35  # the width of the bars
 
 fig, ax = plt.subplots()
-rects1 = ax.bar(x - width/2, Revenue, width, label='Expenditure')
-rects2 = ax.bar(x + width/2, Expenditure, width, label='Revenue')
+rects1 = ax.bar(x - width/2, Revenue, width, label='Revenue')
+rects2 = ax.bar(x + width/2, Expenditure, width, label='Expenditure')
 
 # Add some text for labels, title and custom x-axis tick labels, etc.
-ax.set_ylabel('Revenue/Expenditure')
+ax.set_ylabel("Revenue/Expenditure '000")
 ax.set_title('US State Educational Revenue/Expenditure 2015')
 ax.set_xticks(x)
 ax.set_xticklabels(labels)
